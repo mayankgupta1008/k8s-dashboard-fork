@@ -1,0 +1,16 @@
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ~/.kube/config:/root/.kube/config:ro
+    environment:
+      - K8S_DASH_CORS_ORIGINS=["http://localhost:3000","http://localhost:80"]
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
